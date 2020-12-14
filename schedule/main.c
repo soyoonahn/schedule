@@ -37,7 +37,7 @@ int main(int argc, char *argv[]) {
 	
 
 	//2. read from the file
-	while (!feof(fp)) //파일이 끝날 때까지 while문을 돌린다 
+	while (feof(fp) == 0) //파일이 끝날 때까지 while문을 돌린다 
 	{	
 		fscanf(fp, "%s %s %i %i %i", name, place, &type, &month, &day);
 		//generate genSchedInfo structure by genSchedInfo function 
@@ -47,7 +47,7 @@ int main(int argc, char *argv[]) {
 	}
 	
 	
-	fclose (fp); // ---- close the file pointer
+	fclose(fp); // ---- close the file pointer
 	
 	printf("Read done! %i schedules are read\n\n\n\n", list_len(list));
 	
@@ -93,7 +93,7 @@ int main(int argc, char *argv[]) {
 			case 2:
 				printf("which month ? : ");
 				scanf("%i", &month);
-			
+				cnt = 1; //스케줄 번호를 1로 초기화
 				
 				ndPtr = list;
 				
@@ -103,12 +103,12 @@ int main(int argc, char *argv[]) {
 					ndPtr = list_getNextNd(ndPtr); //get the next node from the list
 					schedInfo = list_getNdObj(ndPtr); //get the object (scheduling info)
 					
-					 //입력받은 월에 해당하는 스케줄을 출력
+					 //입력받은 월에 해당하는 스케줄을 출력 
 					 if (sched_getMonth(schedInfo)==month)
 					{	printf("-------------------------------------\n");
 						printf("%i. ", cnt);
 						sched_print(schedInfo);
-					
+						cnt++;
 					}
 				
 				}
@@ -118,7 +118,7 @@ int main(int argc, char *argv[]) {
 			case 3:
 				printf("which place ? : ");
 				scanf("%s", place);
-			
+				cnt = 1; //스케줄 번호를 1로 초기화
 					
 				ndPtr = list;
 			
@@ -133,7 +133,7 @@ int main(int argc, char *argv[]) {
 					{	printf("-------------------------------------\n");
 						printf("%i. ", cnt);
 						sched_print(schedInfo);
-				
+						cnt = 1;
 					}
 				
 				}
@@ -145,6 +145,7 @@ int main(int argc, char *argv[]) {
 				sched_printTypes();
 				printf("your choice : ");
 				scanf("%s", typeName);
+				cnt = 1; //스케줄 번호를 1로 초기화
 				
 				//스케줄 타입이 0부터 6까지임 
 				if (sched_convertType(typeName)>=0 && sched_convertType(typeName)<=6)
