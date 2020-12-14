@@ -52,7 +52,7 @@ void sched_printTypes(void)
 	int i;
 	
 	for (i=0;i<MAX_TYPE;i++) {
-		printf("- %s\n", i, type_string[i]);
+		printf("%i - %s\n", i, type_string[i]);
 	}
 }
 
@@ -73,12 +73,6 @@ void sched_print(void* obj)
 
 
 
-
-
-
-
-
-
 //generating a structure of scheduling information
 void* sched_genSchedInfo(char* name, char* place, int type, int month, int day)
 {
@@ -87,13 +81,15 @@ void* sched_genSchedInfo(char* name, char* place, int type, int month, int day)
 	//error handler
 	if (schedPtr==NULL)
 	{
-		printf("[ERROR]invalid schedptr");
-		return -1;
+		printf("[ERROR]");
+		
 	}
 	//allocate memory and set the member variables
-	schedPtr = (schedInfo_t*)malloc(sizeof(schedInfo_t));
-	strcpy(schedPtr->name, name);
-	strcpy(schedPtr->name, name);
+	schedPtr = (schedInfo_t*)malloc(sizeof(schedInfo_t)); //ptr은 schedInfo_t 사이즈를 벗어날 수 없음 
+	
+	//구조체에 값 할당
+	strcpy(schedPtr->name, name); 
+	strcpy(schedPtr->place, place);
 	schedPtr->type = type;
 	schedPtr->month = month;
 	schedPtr->day = day;
@@ -108,14 +104,35 @@ void* sched_genSchedInfo(char* name, char* place, int type, int month, int day)
 //get month information from the scheduler info structure
 float sched_getMonth(void* obj)
 {
-	float get_month;
-		
+	schedInfo_t* schedPtr = (schedInfo_t*)obj; 
+	
+	//error handling
+	if (schedPtr==NULL)
+	{
+		printf("[ERROR]");
+		return -1;
+	}
+	
+	return 	schedPtr->month;
+
+	
 }
 
 
 //get type information from the scheduler info structure
 int sched_getType(void* obj)
 {
+	int get_type;
+	schedInfo_t* schedPtr = (schedInfo_t*)obj;
+	
+	if (schedPtr==NULL)
+	{
+		printf("[ERROR]");
+		return -1;
+	}
+	
+	get_type = schedPtr->type;
+	return get_type;
 	
 }
 
@@ -127,12 +144,13 @@ char* sched_getPlace(void* obj)
 	char*get_place;
 	schedInfo_t* schedPtr = (schedInfo_t*)obj;
 	
+	//error handling
 	if (schedPtr==NULL)
 	{
 		printf("[ERROR]");
-		
-	}
 	
+	}
+
 	get_place = schedPtr->place;
 	return get_place;
 }
@@ -140,6 +158,6 @@ char* sched_getPlace(void* obj)
 //convert the name of the type into the enum(integer) value
 int sched_convertType(char* typeName)
 {
-	
-}
 
+
+}

@@ -71,10 +71,10 @@ int main(int argc, char *argv[]) {
 		{
 			case 1: //print all the schedules
 				printf("printing all the schedules in the scheduler.....\n\n\n");
-				
+				cnt = 1; //스케줄 번호를 1로 초기화  
 				ndPtr = list;
-				cnt = 1;
-				
+			
+				//모든 스케줄을 출력
 				while (list_isEndNode(ndPtr) == 0)
 				{
 					//file code here -- print count and each scheduling info element
@@ -83,61 +83,61 @@ int main(int argc, char *argv[]) {
 					ndPtr = list_getNextNd(ndPtr); //get the next node from the list
 					schedInfo = list_getNdObj(ndPtr); //get the object (scheduling info)
 					
-					//fill code this part - end
 					sched_print(schedInfo);
-					
 					cnt++;
+				
 				}
 				printf("----------------------------------\n");
-					
 				break;
 				
 			case 2:
 				printf("which month ? : ");
 				scanf("%i", &month);
-				cnt = 1;
+			
 				
 				ndPtr = list;
+				
 				while (list_isEndNode(ndPtr) == 0)
-				{	printf("-------------------------------------\n");
+				{	
 					//file code here -- print scheduling info elements matching to the month
 					ndPtr = list_getNextNd(ndPtr); //get the next node from the list
 					schedInfo = list_getNdObj(ndPtr); //get the object (scheduling info)
 					
-					if (sched_getMonth(schedInfo)==month)
-					{
-						printf("%i", cnt);
+					 //입력받은 월에 해당하는 스케줄을 출력
+					 if (sched_getMonth(schedInfo)==month)
+					{	printf("-------------------------------------\n");
+						printf("%i. ", cnt);
 						sched_print(schedInfo);
-						cnt++;
-					}
-				printf("-------------------------------------\n");
 					
-				}
+					}
 				
+				}
+				printf("-------------------------------------\n");
 				break;
 				
 			case 3:
 				printf("which place ? : ");
 				scanf("%s", place);
-				cnt = 1;
-				
+			
+					
 				ndPtr = list;
+			
 				while (list_isEndNode(ndPtr) == 0)
-				{
-					printf("-------------------------------------\n");
+				{				
 					//file code here -- print scheduling info elements matching to the place
 					ndPtr = list_getNextNd(ndPtr); //get the next node from the list
 					schedInfo = list_getNdObj(ndPtr); //get the object (scheduling info)
 					
-					if (sched_getMonth(schedInfo)==month)
-					{
-						printf("%i", cnt);
+				//입력받은 장소에 해당하는 스케줄을 출력
+				if (sched_getPlace(schedInfo)==place)
+					{	printf("-------------------------------------\n");
+						printf("%i. ", cnt);
 						sched_print(schedInfo);
-						cnt++;
-					}
-				printf("-------------------------------------\n");	
-				}
 				
+					}
+				
+				}
+				printf("-------------------------------------\n");	
 				break;
 				
 			case 4:
@@ -146,30 +146,31 @@ int main(int argc, char *argv[]) {
 				printf("your choice : ");
 				scanf("%s", typeName);
 				
-				if (sched_convertType(typeName)>0 && sched_convertType(typeName)<6)
+				//스케줄 타입이 0부터 6까지임 
+				if (sched_convertType(typeName)>=0 && sched_convertType(typeName)<=6)
 				{
 					ndPtr = list;
 					cnt = 1;
 					while (list_isEndNode(ndPtr) == 0)
-					{	printf("--------------------------------------");
-						//file code here -- print scheduling info elements matching to the place
+					{	//file code here -- print scheduling info elements matching to the place
 						ndPtr = list_getNextNd(ndPtr); //get the next node from the list
 						schedInfo = list_getNdObj(ndPtr); //get the object (scheduling info)
 						
 						if(sched_convertType(typeName)==sched_getType(schedInfo))
 						{
-						
-							printf(" %i.", cnt);
+							printf("-------------------------------------\n");
+							printf("%i. ", cnt);
 							sched_print(schedInfo);
 							cnt++;
 						}
 					}
 				}
-						else
-						{
-							printf("wrong type name!\n");
-						}
-				printf("-------------------------------------\n");
+				
+				else
+					{
+						printf("wrong type name!\n");
+					}
+			
 				break;
 				
 			case 5:
