@@ -73,21 +73,23 @@ int main(int argc, char *argv[]) {
 				printf("printing all the schedules in the scheduler.....\n\n\n");
 				
 				ndPtr = list;
+				cnt = 1;
+				
 				while (list_isEndNode(ndPtr) == 0)
 				{
 					//file code here -- print count and each scheduling info element
-					printf("-------------------------------------");
-					printf("%i", cnt);
+					printf("--------------------------------\n");
+					printf("%i. ", cnt);
 					ndPtr = list_getNextNd(ndPtr); //get the next node from the list
 					schedInfo = list_getNdObj(ndPtr); //get the object (scheduling info)
 					
 					//fill code this part - end
 					sched_print(schedInfo);
-					printf("-------------------------------------");
 					
 					cnt++;
 				}
-				
+				printf("----------------------------------\n");
+					
 				break;
 				
 			case 2:
@@ -97,7 +99,7 @@ int main(int argc, char *argv[]) {
 				
 				ndPtr = list;
 				while (list_isEndNode(ndPtr) == 0)
-				{	printf("-------------------------------------");
+				{	printf("-------------------------------------\n");
 					//file code here -- print scheduling info elements matching to the month
 					ndPtr = list_getNextNd(ndPtr); //get the next node from the list
 					schedInfo = list_getNdObj(ndPtr); //get the object (scheduling info)
@@ -108,7 +110,7 @@ int main(int argc, char *argv[]) {
 						sched_print(schedInfo);
 						cnt++;
 					}
-				printf("-------------------------------------");
+				printf("-------------------------------------\n");
 					
 				}
 				
@@ -122,7 +124,7 @@ int main(int argc, char *argv[]) {
 				ndPtr = list;
 				while (list_isEndNode(ndPtr) == 0)
 				{
-					printf("-------------------------------------");
+					printf("-------------------------------------\n");
 					//file code here -- print scheduling info elements matching to the place
 					ndPtr = list_getNextNd(ndPtr); //get the next node from the list
 					schedInfo = list_getNdObj(ndPtr); //get the object (scheduling info)
@@ -133,7 +135,7 @@ int main(int argc, char *argv[]) {
 						sched_print(schedInfo);
 						cnt++;
 					}
-					
+				printf("-------------------------------------\n");	
 				}
 				
 				break;
@@ -163,10 +165,11 @@ int main(int argc, char *argv[]) {
 						}
 					}
 				}
-				else
-				{
-					printf("wrong type name!\n");
-				}
+						else
+						{
+							printf("wrong type name!\n");
+						}
+				printf("-------------------------------------\n");
 				break;
 				
 			case 5:
